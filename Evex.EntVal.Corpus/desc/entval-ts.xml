@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<name>issst-entval-corpus</name>
+	<description />
+	<version>1.0</version>
+	<vendor>Intelligent Search Systems and Semantic Technologies Lab
+		at Higher School of ITIS
+		at Kazan Federal University
+	</vendor>
+
+	<types>
+		<!-- Parent types -->
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Entity</name>
+			<description />
+			<supertypeName>uima.tcas.Annotation</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Value</name>
+			<description />
+			<supertypeName>uima.tcas.Annotation</supertypeName>
+		</typeDescription>
+
+		<!-- Entity types -->
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Person</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Entity</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Organization</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Entity</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.GPE</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Entity</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.GPEGPE</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.GPE</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.GPEPerson</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.GPE</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.GPEOrganization</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.GPE</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.GPELocation</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.GPE</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Location</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Entity</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Facility</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Entity</supertypeName>
+		</typeDescription>
+
+		<!-- Value types -->
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Time</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Value</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Money</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Value</supertypeName>
+		</typeDescription>
+	</types>
+</typeSystemDescription>
