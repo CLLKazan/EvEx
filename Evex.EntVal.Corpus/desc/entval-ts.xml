@@ -7,6 +7,10 @@
 		at Higher School of ITIS
 		at Kazan Federal University
 	</vendor>
+	
+	<imports>
+		<import name="ru.kfu.itis.cll.uima.commons.Commons-TypeSystem"/>
+	</imports>
 
 	<types>
 		<!-- Parent types -->
