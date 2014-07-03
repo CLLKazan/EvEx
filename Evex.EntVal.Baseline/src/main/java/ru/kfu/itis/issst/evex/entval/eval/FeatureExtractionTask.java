@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.collection.CollectionReaderDescription;
+import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.uimafit.factory.CollectionReaderFactory;
 
@@ -27,10 +28,17 @@ import de.tudarmstadt.ukp.dkpro.lab.uima.task.impl.UimaTaskBase;
  */
 class FeatureExtractionTask extends UimaTaskBase {
 
+	// config
+	private Class<? extends Annotation> entityTypeClass;
+	// discriminators
 	@Discriminator
 	File corpusDir;
 	@Discriminator
 	int fold;
+
+	FeatureExtractionTask(Class<? extends Annotation> entityTypeClass) {
+		this.entityTypeClass = entityTypeClass;
+	}
 
 	@Override
 	public CollectionReaderDescription getCollectionReaderDescription(TaskContext taskCtx)
@@ -49,7 +57,7 @@ class FeatureExtractionTask extends UimaTaskBase {
 		File trainingDir = taskCtx.getStorageLocation(LabConstants.KEY_TRAINING_DIR,
 				AccessMode.READWRITE);
 		AnalysisEngineDescription featExtractorDesc = SeqClassifierBasedEntityMentionDetector
-				.createFeatureExtractorDescription(trainingDir);
+				.createFeatureExtractorDescription(entityTypeClass, trainingDir);
 		return createAggregateDescription(featExtractorDesc);
 	}
 

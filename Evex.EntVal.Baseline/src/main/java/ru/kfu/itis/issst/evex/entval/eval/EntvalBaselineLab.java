@@ -36,6 +36,7 @@ import de.tudarmstadt.ukp.dkpro.lab.uima.task.impl.UimaTaskBase;
 import ru.kfu.itis.cll.uima.io.IoUtils;
 import ru.kfu.itis.cll.uima.util.CorpusUtils;
 import ru.kfu.itis.cll.uima.util.Slf4jLoggerImpl;
+import ru.kfu.itis.issst.evex.Person;
 
 /**
  * @author Rinat Gareev (Kazan Federal University)
@@ -79,13 +80,13 @@ public class EntvalBaselineLab {
 		}
 		log.info("Cross-validation folds for the corpus: {}", foldNum);
 		//
-		UimaTaskBase featureExtractionTask = new FeatureExtractionTask();
+		UimaTaskBase featureExtractionTask = new FeatureExtractionTask(Person.class);
 		featureExtractionTask.setType("FeatureExtraction");
 		// -----------------------------------------------------------------
 		ExecutableTaskBase trainingTask = new TrainingTask();
 		trainingTask.setType("Training");
 		// -----------------------------------------------------------------
-		UimaTaskBase analysisTask = new AnalysisTask();
+		UimaTaskBase analysisTask = new AnalysisTask(Person.class);
 		analysisTask.setType("Analysis");
 		// -----------------------------------------------------------------
 		ExecutableTaskBase evaluationTask = new EvaluationTask();

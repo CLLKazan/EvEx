@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.collection.CollectionReaderDescription;
+import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.uimafit.factory.CollectionReaderFactory;
 import org.uimafit.factory.ConfigurationParameterFactory;
@@ -33,10 +34,17 @@ import de.tudarmstadt.ukp.dkpro.lab.uima.task.impl.UimaTaskBase;
  */
 class AnalysisTask extends UimaTaskBase {
 
+	// config
+	private Class<? extends Annotation> entityTypeClass;
+	// disriminators
 	@Discriminator
 	File corpusDir;
 	@Discriminator
 	int fold;
+
+	AnalysisTask(Class<? extends Annotation> entityTypeClass) {
+		this.entityTypeClass = entityTypeClass;
+	}
 
 	@Override
 	public CollectionReaderDescription getCollectionReaderDescription(TaskContext taskCtx)
@@ -59,7 +67,7 @@ class AnalysisTask extends UimaTaskBase {
 		AnalysisEngineDescription goldRemoverDesc = createGoldRemoverDesc();
 		//
 		AnalysisEngineDescription taggerDesc = SeqClassifierBasedEntityMentionDetector
-				.createAnalyzerDescription(modelDir);
+				.createAnalyzerDescription(entityTypeClass, modelDir);
 		// We should specify additional paths to resolve relative paths of model jars.  
 		// There are several ways to do this. E.g., we can change global UIMA data-path.
 		// But the better solution is to provide the parameter for JarClassifierFactory.

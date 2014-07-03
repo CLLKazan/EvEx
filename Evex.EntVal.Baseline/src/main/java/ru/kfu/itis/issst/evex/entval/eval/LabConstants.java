@@ -6,6 +6,7 @@ package ru.kfu.itis.issst.evex.entval.eval;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.uimafit.factory.TypeSystemDescriptionFactory;
 
+import ru.kfu.itis.issst.evex.entval.EntvalRecognizerAPI;
 import ru.kfu.itis.issst.uima.segmentation.SentenceSplitterAPI;
 import ru.kfu.itis.issst.uima.tokenizer.TokenizerAPI;
 
@@ -21,7 +22,7 @@ public class LabConstants {
 					TokenizerAPI.TYPESYSTEM_TOKENIZER,
 					SentenceSplitterAPI.TYPESYSTEM_SENTENCES,
 					"org.opencorpora.morphology-ts",
-					"ru.kfu.itis.issst.evex.entval.entval-ts"
+					EntvalRecognizerAPI.TYPESYSTEM_ENTVAL
 			);
 
 	public static final String KEY_TRAINING_DIR = "TrainingDir";
