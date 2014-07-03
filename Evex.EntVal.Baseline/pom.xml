@@ -27,6 +27,10 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>ru.kfu.itis.issst.evex</groupId>
+			<artifactId>evex-entval-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>ru.ksu.niimm.cll.uima</groupId>
 			<artifactId>uima-ext-commons</artifactId>
 		</dependency>

@@ -79,6 +79,11 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>ru.kfu.itis.issst.evex</groupId>
+				<artifactId>evex-entval-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.cleartk</groupId>
 				<artifactId>cleartk-release</artifactId>
 				<version>1.4.1</version>
