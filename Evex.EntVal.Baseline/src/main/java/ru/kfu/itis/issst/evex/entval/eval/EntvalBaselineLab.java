@@ -9,11 +9,17 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.uima.jcas.tcas.Annotation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import ru.kfu.itis.cll.uima.io.IoUtils;
+import ru.kfu.itis.cll.uima.util.CorpusUtils;
+import ru.kfu.itis.cll.uima.util.Slf4jLoggerImpl;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -23,20 +29,18 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ContiguousSet;
 import com.google.common.collect.DiscreteDomain;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Range;
 import com.google.common.collect.Sets;
 
 import de.tudarmstadt.ukp.dkpro.lab.Lab;
 import de.tudarmstadt.ukp.dkpro.lab.task.Dimension;
 import de.tudarmstadt.ukp.dkpro.lab.task.ParameterSpace;
+import de.tudarmstadt.ukp.dkpro.lab.task.Task;
 import de.tudarmstadt.ukp.dkpro.lab.task.impl.BatchTask;
 import de.tudarmstadt.ukp.dkpro.lab.task.impl.BatchTask.ExecutionPolicy;
 import de.tudarmstadt.ukp.dkpro.lab.task.impl.ExecutableTaskBase;
 import de.tudarmstadt.ukp.dkpro.lab.uima.task.impl.UimaTaskBase;
-import ru.kfu.itis.cll.uima.io.IoUtils;
-import ru.kfu.itis.cll.uima.util.CorpusUtils;
-import ru.kfu.itis.cll.uima.util.Slf4jLoggerImpl;
-import ru.kfu.itis.issst.evex.Person;
 
 /**
  * @author Rinat Gareev (Kazan Federal University)
@@ -80,21 +84,31 @@ public class EntvalBaselineLab {
 		}
 		log.info("Cross-validation folds for the corpus: {}", foldNum);
 		//
-		UimaTaskBase featureExtractionTask = new FeatureExtractionTask(Person.class);
-		featureExtractionTask.setType("FeatureExtraction");
+		Map<Class<? extends Annotation>, Task> feTasks = Maps.newLinkedHashMap();
+		for (Class<? extends Annotation> entvalClass : ENTVAL_CLASSES) {
+			UimaTaskBase featureExtractionTask = new FeatureExtractionTask(entvalClass);
+			featureExtractionTask.setType("FeatureExtraction_" + entvalClass.getSimpleName());
+			feTasks.put(entvalClass, featureExtractionTask);
+		}
 		// -----------------------------------------------------------------
-		ExecutableTaskBase trainingTask = new TrainingTask();
-		trainingTask.setType("Training");
+		Map<Class<? extends Annotation>, Task> trainTasks = Maps.newLinkedHashMap();
+		for (Class<? extends Annotation> entvalClass : feTasks.keySet()) {
+			Task feTask = feTasks.get(entvalClass);
+			ExecutableTaskBase trainingTask = new TrainingTask();
+			trainingTask.setType("Training_" + entvalClass.getSimpleName());
+			trainingTask.addImport(feTask, KEY_TRAINING_DIR);
+			trainTasks.put(entvalClass, trainingTask);
+		}
 		// -----------------------------------------------------------------
-		UimaTaskBase analysisTask = new AnalysisTask(Person.class);
+		UimaTaskBase analysisTask = new AnalysisTask(trainTasks.keySet());
 		analysisTask.setType("Analysis");
+		for (Class<? extends Annotation> entvalClass : trainTasks.keySet()) {
+			Task trainTask = trainTasks.get(entvalClass);
+			analysisTask.addImport(trainTask, KEY_MODEL_DIR, modelDirKey(entvalClass));
+		}
 		// -----------------------------------------------------------------
 		ExecutableTaskBase evaluationTask = new EvaluationTask();
 		evaluationTask.setType("Evaluation");
-		// -----------------------------------------------------------------
-		// configure data-flow between tasks
-		trainingTask.addImport(featureExtractionTask, KEY_TRAINING_DIR);
-		analysisTask.addImport(trainingTask, KEY_MODEL_DIR);
 		evaluationTask.addImport(analysisTask, KEY_OUTPUT_DIR);
 		// -----------------------------------------------------------------
 		// create parameter space
@@ -111,8 +125,12 @@ public class EntvalBaselineLab {
 		// -----------------------------------------------------------------
 		// create and run BatchTask
 		BatchTask batchTask = new BatchTask();
-		batchTask.addTask(featureExtractionTask);
-		batchTask.addTask(trainingTask);
+		for (Task t : feTasks.values()) {
+			batchTask.addTask(t);
+		}
+		for (Task t : trainTasks.values()) {
+			batchTask.addTask(t);
+		}
 		batchTask.addTask(analysisTask);
 		batchTask.addTask(evaluationTask);
 		// 
