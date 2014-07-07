@@ -46,6 +46,7 @@ import ru.kfu.cll.uima.tokenizer.fstype.Token;
 import ru.kfu.itis.issst.cleartk.Disposable;
 import ru.kfu.itis.issst.cleartk.JarSequenceClassifierFactory;
 import ru.kfu.itis.issst.cleartk.crfsuite.CRFSuiteStringOutcomeDataWriterFactory;
+import ru.ksu.niimm.cll.uima.morph.ml.LemmaFeatureExtractor;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
@@ -119,12 +120,15 @@ public class SeqClassifierBasedEntityMentionDetector<ET extends Annotation>
 		SimpleFeatureExtractor tokenFE = new CombinedExtractor(currentTokenExtractors().toArray(
 				new SimpleFeatureExtractor[0]));
 		simpleFeatExtractors.add(tokenFE);
+		SimpleFeatureExtractor lemmaFE = new LemmaFeatureExtractor();
+		simpleFeatExtractors.add(lemmaFE);
 		//
 		// TODO add PoS-tag-extractor for current token
 		// TODO add grammeme[PoS]-extractor for current token
 		// TODO add agreement extractor for current token
 		//
 		List<SimpleFeatureExtractor> contextTokenFeatureExtractors = contextTokenExtractors();
+		contextTokenFeatureExtractors.add(lemmaFE);
 		// TODO add PoS-tag-extractor for context
 		SimpleFeatureExtractor contextTokenFeatureExtractor = new CombinedExtractor(
 				contextTokenFeatureExtractors.toArray(
