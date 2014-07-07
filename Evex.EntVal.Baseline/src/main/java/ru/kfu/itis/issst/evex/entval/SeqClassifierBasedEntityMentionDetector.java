@@ -50,6 +50,7 @@ import ru.kfu.itis.issst.cleartk.JarSequenceClassifierFactory;
 import ru.kfu.itis.issst.cleartk.crfsuite.CRFSuiteStringOutcomeDataWriterFactory;
 import ru.ksu.niimm.cll.uima.morph.ml.GrammemeExtractor;
 import ru.ksu.niimm.cll.uima.morph.ml.LemmaFeatureExtractor;
+import ru.ksu.niimm.cll.uima.morph.ml.NGCAgreementFeatureExtractor;
 import ru.ksu.niimm.cll.uima.morph.ml.PosTagFeatureExtractor;
 import ru.ksu.niimm.cll.uima.morph.opencorpora.model.MorphConstants;
 import ru.ksu.niimm.cll.uima.morph.opencorpora.resource.GramModel;
@@ -144,15 +145,13 @@ public class SeqClassifierBasedEntityMentionDetector<ET extends Annotation>
 		SimpleFeatureExtractor posExtractor = new GrammemeExtractor(gramModel, MorphConstants.POST);
 		simpleFeatExtractors.add(posExtractor);
 		//
-		// TODO add PoS-tag-extractor for current token
-		// TODO add grammeme[PoS]-extractor for current token
-		// TODO add agreement extractor for current token
+		SimpleFeatureExtractor agrExtractor = new NGCAgreementFeatureExtractor(gramModel);
+		simpleFeatExtractors.add(agrExtractor);
 		//
 		List<SimpleFeatureExtractor> contextTokenFeatureExtractors = contextTokenExtractors();
 		contextTokenFeatureExtractors.add(lemmaFE);
 		contextTokenFeatureExtractors.add(tagExtractor);
 		contextTokenFeatureExtractors.add(posExtractor);
-		// TODO add PoS-tag-extractor for context
 		SimpleFeatureExtractor contextTokenFeatureExtractor = new CombinedExtractor(
 				contextTokenFeatureExtractors.toArray(
 						new SimpleFeatureExtractor[contextTokenFeatureExtractors.size()]));
