@@ -4,6 +4,8 @@
 package ru.kfu.itis.issst.evex.entval.eval;
 
 import static org.uimafit.factory.AnalysisEngineFactory.createAggregateDescription;
+import static ru.kfu.itis.issst.evex.entval.eval.LabConstants.GRAM_MODEL_DESCRIPTOR;
+import static ru.kfu.itis.issst.evex.entval.eval.LabConstants.KEY_TRAINING_DIR;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,10 +56,10 @@ class FeatureExtractionTask extends UimaTaskBase {
 	@Override
 	public AnalysisEngineDescription getAnalysisEngineDescription(TaskContext taskCtx)
 			throws ResourceInitializationException, IOException {
-		File trainingDir = taskCtx.getStorageLocation(LabConstants.KEY_TRAINING_DIR,
-				AccessMode.READWRITE);
+		File trainingDir = taskCtx.getStorageLocation(KEY_TRAINING_DIR, AccessMode.READWRITE);
 		AnalysisEngineDescription featExtractorDesc = SeqClassifierBasedEntityMentionDetector
-				.createFeatureExtractorDescription(entityTypeClass, trainingDir);
+				.createFeatureExtractorDescription(
+						entityTypeClass, GRAM_MODEL_DESCRIPTOR, trainingDir);
 		return createAggregateDescription(featExtractorDesc);
 	}
 

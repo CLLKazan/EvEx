@@ -3,13 +3,14 @@
  */
 package ru.kfu.itis.issst.evex.entval.eval;
 
+import static org.uimafit.factory.ExternalResourceFactory.createExternalResourceDescription;
+
 import java.util.List;
 
 import org.apache.uima.jcas.tcas.Annotation;
+import org.apache.uima.resource.ExternalResourceDescription;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.uimafit.factory.TypeSystemDescriptionFactory;
-
-import com.google.common.collect.ImmutableList;
 
 import ru.kfu.itis.issst.evex.Facility;
 import ru.kfu.itis.issst.evex.GPE;
@@ -21,6 +22,9 @@ import ru.kfu.itis.issst.evex.Time;
 import ru.kfu.itis.issst.evex.entval.EntvalRecognizerAPI;
 import ru.kfu.itis.issst.uima.segmentation.SentenceSplitterAPI;
 import ru.kfu.itis.issst.uima.tokenizer.TokenizerAPI;
+import ru.ksu.niimm.cll.uima.morph.opencorpora.resource.GramModelResource;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * @author Rinat Gareev (Kazan Federal University)
@@ -56,4 +60,7 @@ public class LabConstants {
 	public static String modelDirKey(Class<? extends Annotation> entvalClass) {
 		return KEY_MODEL_DIR + "-" + entvalClass.getSimpleName();
 	}
+
+	static final ExternalResourceDescription GRAM_MODEL_DESCRIPTOR = createExternalResourceDescription(
+			GramModelResource.class, "file:dict.opcorpora.ser");
 }

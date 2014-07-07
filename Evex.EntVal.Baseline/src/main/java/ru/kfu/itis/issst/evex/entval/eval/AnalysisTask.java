@@ -5,6 +5,9 @@ package ru.kfu.itis.issst.evex.entval.eval;
 
 import static org.uimafit.factory.AnalysisEngineFactory.createAggregateDescription;
 import static org.uimafit.factory.AnalysisEngineFactory.createPrimitiveDescription;
+import static ru.kfu.itis.issst.evex.entval.eval.LabConstants.GRAM_MODEL_DESCRIPTOR;
+import static ru.kfu.itis.issst.evex.entval.eval.LabConstants.KEY_OUTPUT_DIR;
+import static ru.kfu.itis.issst.evex.entval.eval.LabConstants.corpusTS;
 import static ru.kfu.itis.issst.evex.entval.eval.LabConstants.modelDirKey;
 
 import java.io.File;
@@ -57,7 +60,7 @@ class AnalysisTask extends UimaTaskBase {
 			throws ResourceInitializationException, IOException {
 		File targetFileList = new File(corpusDir, CorpusUtils.getTestPartitionFilename(fold));
 		return CollectionReaderFactory.createDescription(XmiFileListReader.class,
-				LabConstants.corpusTS,
+				corpusTS,
 				XmiFileListReader.PARAM_BASE_DIR, corpusDir.getPath(),
 				XmiFileListReader.PARAM_LIST_FILE, targetFileList.getPath());
 	}
@@ -65,7 +68,7 @@ class AnalysisTask extends UimaTaskBase {
 	@Override
 	public AnalysisEngineDescription getAnalysisEngineDescription(TaskContext taskCtx)
 			throws ResourceInitializationException, IOException {
-		File outputDir = taskCtx.getStorageLocation(LabConstants.KEY_OUTPUT_DIR,
+		File outputDir = taskCtx.getStorageLocation(KEY_OUTPUT_DIR,
 				AccessMode.READWRITE);
 		List<AnalysisEngineDescription> aeDescs = Lists.newLinkedList();
 		List<String> aeNames = Lists.newLinkedList();
@@ -77,7 +80,7 @@ class AnalysisTask extends UimaTaskBase {
 			File modelDir = taskCtx.getStorageLocation(modelDirKey(entClass),
 					AccessMode.READONLY);
 			AnalysisEngineDescription taggerDesc = SeqClassifierBasedEntityMentionDetector
-					.createAnalyzerDescription(entClass, modelDir);
+					.createAnalyzerDescription(entClass, GRAM_MODEL_DESCRIPTOR, modelDir);
 			// We should specify additional paths to resolve relative paths of model jars.  
 			// There are several ways to do this. E.g., we can change global UIMA data-path.
 			// But the better solution is to provide the parameter for JarClassifierFactory.

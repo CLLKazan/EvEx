@@ -25,6 +25,7 @@ import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
+import org.apache.uima.resource.ExternalResourceDescription;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.cleartk.classifier.CleartkProcessingException;
 import org.cleartk.classifier.CleartkSequenceAnnotator;
@@ -37,6 +38,7 @@ import org.cleartk.classifier.feature.extractor.simple.SimpleFeatureExtractor;
 import org.cleartk.classifier.jar.DirectoryDataWriterFactory;
 import org.cleartk.classifier.jar.JarClassifierBuilder;
 import org.uimafit.descriptor.ConfigurationParameter;
+import org.uimafit.descriptor.ExternalResource;
 import org.uimafit.factory.AnnotationFactory;
 import org.uimafit.util.ContainmentIndex;
 import org.uimafit.util.JCasUtil;
@@ -46,7 +48,12 @@ import ru.kfu.cll.uima.tokenizer.fstype.Token;
 import ru.kfu.itis.issst.cleartk.Disposable;
 import ru.kfu.itis.issst.cleartk.JarSequenceClassifierFactory;
 import ru.kfu.itis.issst.cleartk.crfsuite.CRFSuiteStringOutcomeDataWriterFactory;
+import ru.ksu.niimm.cll.uima.morph.ml.GrammemeExtractor;
 import ru.ksu.niimm.cll.uima.morph.ml.LemmaFeatureExtractor;
+import ru.ksu.niimm.cll.uima.morph.ml.PosTagFeatureExtractor;
+import ru.ksu.niimm.cll.uima.morph.opencorpora.model.MorphConstants;
+import ru.ksu.niimm.cll.uima.morph.opencorpora.resource.GramModel;
+import ru.ksu.niimm.cll.uima.morph.opencorpora.resource.GramModelHolder;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
@@ -58,6 +65,7 @@ import com.google.common.collect.Lists;
 public class SeqClassifierBasedEntityMentionDetector<ET extends Annotation>
 		extends CleartkSequenceAnnotator<String> {
 
+	public static final String RESOURCE_GRAM_MODEL = "gramModel";
 	public static final String PARAM_ENTITY_TYPE = "entityType";
 	// BIO
 	private static final String LABEL_BEGIN_PREFIX = "B_";
@@ -65,9 +73,10 @@ public class SeqClassifierBasedEntityMentionDetector<ET extends Annotation>
 	private static final String LABEL_OUTSIDE = "O";
 
 	public static AnalysisEngineDescription createFeatureExtractorDescription(
-			Class<?> entityTypeClass, File trainingDir)
+			Class<?> entityTypeClass, ExternalResourceDescription gramModelDesc, File trainingDir)
 			throws ResourceInitializationException {
 		return createPrimitiveDescription(SeqClassifierBasedEntityMentionDetector.class,
+				RESOURCE_GRAM_MODEL, gramModelDesc,
 				PARAM_DATA_WRITER_FACTORY_CLASS_NAME,
 				CRFSuiteStringOutcomeDataWriterFactory.class.getName(),
 				DirectoryDataWriterFactory.PARAM_OUTPUT_DIRECTORY, trainingDir,
@@ -75,12 +84,13 @@ public class SeqClassifierBasedEntityMentionDetector<ET extends Annotation>
 	}
 
 	public static AnalysisEngineDescription createAnalyzerDescription(
-			Class<?> entityTypeClass, File modelDir)
+			Class<?> entityTypeClass, ExternalResourceDescription gramModelDesc, File modelDir)
 			throws ResourceInitializationException {
 		File modelJarFile = JarClassifierBuilder.getModelJarFile(modelDir);
 		// make model jar path relative to modelBaseDir
 		String jarRelativePath = relativize(modelDir, modelJarFile);
 		return createPrimitiveDescription(SeqClassifierBasedEntityMentionDetector.class,
+				RESOURCE_GRAM_MODEL, gramModelDesc,
 				PARAM_CLASSIFIER_FACTORY_CLASS_NAME, JarSequenceClassifierFactory.class.getName(),
 				JarSequenceClassifierFactory.PARAM_CLASSIFIER_JAR_PATH, jarRelativePath,
 				PARAM_ENTITY_TYPE, entityTypeClass.getName());
@@ -99,17 +109,21 @@ public class SeqClassifierBasedEntityMentionDetector<ET extends Annotation>
 		return FilenameUtils.separatorsToSystem(relativeUri.getPath());
 	}
 
+	@ExternalResource(key = RESOURCE_GRAM_MODEL, mandatory = true)
+	private GramModelHolder gramModelHolder;
 	@ConfigurationParameter(name = PARAM_ENTITY_TYPE, mandatory = true)
 	private Class<ET> entityTypeClass;
 	private List<SimpleFeatureExtractor> simpleFeatExtractors;
 	private List<CleartkExtractor> contextFeatExtractors;
 	// derived
+	private GramModel gramModel;
 	private String beginLabel;
 	private String insideLabel;
 
 	@Override
 	public void initialize(UimaContext ctx) throws ResourceInitializationException {
 		super.initialize(ctx);
+		gramModel = gramModelHolder.getGramModel();
 		//
 		beginLabel = LABEL_BEGIN_PREFIX + entityTypeClass.getSimpleName();
 		insideLabel = LABEL_INSIDE_PREFIX + entityTypeClass.getSimpleName();
@@ -120,8 +134,15 @@ public class SeqClassifierBasedEntityMentionDetector<ET extends Annotation>
 		SimpleFeatureExtractor tokenFE = new CombinedExtractor(currentTokenExtractors().toArray(
 				new SimpleFeatureExtractor[0]));
 		simpleFeatExtractors.add(tokenFE);
+		//
 		SimpleFeatureExtractor lemmaFE = new LemmaFeatureExtractor();
 		simpleFeatExtractors.add(lemmaFE);
+		//
+		SimpleFeatureExtractor tagExtractor = new PosTagFeatureExtractor();
+		simpleFeatExtractors.add(tagExtractor);
+		//
+		SimpleFeatureExtractor posExtractor = new GrammemeExtractor(gramModel, MorphConstants.POST);
+		simpleFeatExtractors.add(posExtractor);
 		//
 		// TODO add PoS-tag-extractor for current token
 		// TODO add grammeme[PoS]-extractor for current token
@@ -129,6 +150,8 @@ public class SeqClassifierBasedEntityMentionDetector<ET extends Annotation>
 		//
 		List<SimpleFeatureExtractor> contextTokenFeatureExtractors = contextTokenExtractors();
 		contextTokenFeatureExtractors.add(lemmaFE);
+		contextTokenFeatureExtractors.add(tagExtractor);
+		contextTokenFeatureExtractors.add(posExtractor);
 		// TODO add PoS-tag-extractor for context
 		SimpleFeatureExtractor contextTokenFeatureExtractor = new CombinedExtractor(
 				contextTokenFeatureExtractors.toArray(
