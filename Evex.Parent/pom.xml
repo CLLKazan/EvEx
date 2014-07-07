@@ -126,6 +126,11 @@
 				<version>${uima-ext.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>ru.ksu.niimm.cll.uima</groupId>
+				<artifactId>uima-ext-lemmatizer-opencorpora</artifactId>
+				<version>${uima-ext.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.apache.uima</groupId>
 				<artifactId>uimaj-core</artifactId>
 				<version>${uima.version}</version>

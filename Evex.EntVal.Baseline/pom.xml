@@ -38,6 +38,10 @@
 			<groupId>ru.ksu.niimm.cll.uima</groupId>
 			<artifactId>uima-morph-opencorpora</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>ru.ksu.niimm.cll.uima</groupId>
+			<artifactId>uima-ext-lemmatizer-opencorpora</artifactId>
+		</dependency>
 		<!-- For corpus preparation routines -->
 		<dependency>
 			<groupId>ru.ksu.niimm.cll.uima</groupId>

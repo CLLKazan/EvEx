@@ -47,7 +47,7 @@ public class LabConstants {
 	public static final List<Class<? extends Annotation>> ENTVAL_CLASSES = ImmutableList.of(
 			Person.class,
 			Organization.class,
-			// GPE.class,
+			GPE.class,
 			Facility.class,
 			Location.class,
 			Time.class,
