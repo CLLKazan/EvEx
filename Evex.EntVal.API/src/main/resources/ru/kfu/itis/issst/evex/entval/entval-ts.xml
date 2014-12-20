@@ -7,9 +7,9 @@
 		at Higher School of ITIS
 		at Kazan Federal University
 	</vendor>
-	
+
 	<imports>
-		<import name="ru.kfu.itis.cll.uima.commons.Commons-TypeSystem"/>
+		<import name="ru.kfu.itis.cll.uima.commons.Commons-TypeSystem" />
 	</imports>
 
 	<types>
@@ -23,6 +23,12 @@
 		<typeDescription>
 			<name>ru.kfu.itis.issst.evex.Value</name>
 			<description />
+			<supertypeName>uima.tcas.Annotation</supertypeName>
+		</typeDescription>
+
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Event</name>
+			<description>Span of an event annotations is defined by the event trigger word(s).</description>
 			<supertypeName>uima.tcas.Annotation</supertypeName>
 		</typeDescription>
 
@@ -92,6 +98,78 @@
 			<name>ru.kfu.itis.issst.evex.Money</name>
 			<description />
 			<supertypeName>ru.kfu.itis.issst.evex.Value</supertypeName>
+		</typeDescription>
+		
+		<!-- Event types -->
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Injure</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Die</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.TransferOwnership</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.TransferMoney</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.StartOrg</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.EndOrg</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.MergeOrg</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.DeclareBankruptcy</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.StartPosition</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.EndPosition</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		 <typeDescription>
+			<name>ru.kfu.itis.issst.evex.IndictSue</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.TrialHearing</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Sentence</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
+		</typeDescription>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.Fine</name>
+			<description />
+			<supertypeName>ru.kfu.itis.issst.evex.Event</supertypeName>
 		</typeDescription>
 	</types>
 </typeSystemDescription>
