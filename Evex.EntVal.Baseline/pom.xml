@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>ru.kfu.itis.issst.evex</groupId>
 		<artifactId>evex-parent</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>evex-entval-baseline</artifactId>
 	<name>EvEx Entity &amp; Value Recognition Baseline</name>
 
@@ -36,11 +36,19 @@
 		</dependency>
 		<dependency>
 			<groupId>ru.ksu.niimm.cll.uima</groupId>
-			<artifactId>uima-morph-opencorpora</artifactId>
+			<artifactId>uima-ext-eval</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>ru.ksu.niimm.cll.uima</groupId>
-			<artifactId>uima-ext-lemmatizer-opencorpora</artifactId>
+			<artifactId>uima-ext-morph-dictionary-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ru.ksu.niimm.cll.uima</groupId>
+			<artifactId>uima-ext-postagger-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ru.ksu.niimm.cll.uima</groupId>
+			<artifactId>uima-ext-lemmatizer-api</artifactId>
 		</dependency>
 		<!-- For corpus preparation routines -->
 		<dependency>
@@ -51,6 +59,21 @@
 		<dependency>
 			<groupId>ru.ksu.niimm.cll.uima</groupId>
 			<artifactId>uima-ext-sentence-splitter-heuristic</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>ru.ksu.niimm.cll.uima</groupId>
+			<artifactId>uima-ext-morph-dictionary-opencorpora</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>ru.ksu.niimm.cll.uima</groupId>
+			<artifactId>uima-ext-postagger-tcrf</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>ru.ksu.niimm.cll.uima</groupId>
+			<artifactId>uima-ext-lemmatizer-opencorpora</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<!-- /// -->

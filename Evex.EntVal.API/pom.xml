@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>ru.kfu.itis.issst.evex</groupId>
 		<artifactId>evex-parent</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>evex-entval-api</artifactId>

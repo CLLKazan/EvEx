@@ -6,10 +6,11 @@
 	<artifactId>evex-parent</artifactId>
 	<name>EvEx Parent POM</name>
 	<description />
-	<version>0.1-SNAPSHOT</version>
+	<version>0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>../Evex.Entval.API</module>
 		<module>../Evex.Entval.Baseline</module>
 	</modules>
 
@@ -122,7 +123,27 @@
 			</dependency>
 			<dependency>
 				<groupId>ru.ksu.niimm.cll.uima</groupId>
-				<artifactId>uima-morph-opencorpora</artifactId>
+				<artifactId>uima-ext-morph-dictionary-api</artifactId>
+				<version>${uima-ext.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ru.ksu.niimm.cll.uima</groupId>
+				<artifactId>uima-ext-morph-dictionary-opencorpora</artifactId>
+				<version>${uima-ext.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ru.ksu.niimm.cll.uima</groupId>
+				<artifactId>uima-ext-postagger-api</artifactId>
+				<version>${uima-ext.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ru.ksu.niimm.cll.uima</groupId>
+				<artifactId>uima-ext-postagger-tcrf</artifactId>
+				<version>${uima-ext.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ru.ksu.niimm.cll.uima</groupId>
+				<artifactId>uima-ext-lemmatizer-api</artifactId>
 				<version>${uima-ext.version}</version>
 			</dependency>
 			<dependency>
@@ -230,6 +251,6 @@
 
 	<properties>
 		<uima.version>2.4.2</uima.version>
-		<uima-ext.version>0.3-SNAPSHOT</uima-ext.version>
+		<uima-ext.version>0.4-SNAPSHOT</uima-ext.version>
 	</properties>
 </project>

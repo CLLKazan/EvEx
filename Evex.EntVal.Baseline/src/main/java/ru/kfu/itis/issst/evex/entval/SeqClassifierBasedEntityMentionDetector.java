@@ -7,8 +7,8 @@ import static org.uimafit.factory.AnalysisEngineFactory.createPrimitiveDescripti
 import static ru.kfu.itis.cll.uima.cas.AnnotationUtils.coveredTextFunction;
 import static ru.kfu.itis.cll.uima.cas.AnnotationUtils.toPrettyString;
 import static ru.kfu.itis.cll.uima.util.DocumentUtils.getDocumentUri;
-import static ru.ksu.niimm.cll.uima.morph.ml.DefaultFeatureExtractors.contextTokenExtractors;
-import static ru.ksu.niimm.cll.uima.morph.ml.DefaultFeatureExtractors.currentTokenExtractors;
+import static ru.kfu.itis.issst.uima.ml.DefaultFeatureExtractors.currentTokenExtractors;
+import static ru.kfu.itis.issst.uima.ml.DefaultFeatureExtractors.contextTokenExtractors;
 
 import java.io.File;
 import java.net.URI;
@@ -48,13 +48,13 @@ import ru.kfu.cll.uima.tokenizer.fstype.Token;
 import ru.kfu.itis.issst.cleartk.Disposable;
 import ru.kfu.itis.issst.cleartk.JarSequenceClassifierFactory;
 import ru.kfu.itis.issst.cleartk.crfsuite.CRFSuiteStringOutcomeDataWriterFactory;
-import ru.ksu.niimm.cll.uima.morph.ml.GrammemeExtractor;
-import ru.ksu.niimm.cll.uima.morph.ml.LemmaFeatureExtractor;
-import ru.ksu.niimm.cll.uima.morph.ml.NGCAgreementFeatureExtractor;
-import ru.ksu.niimm.cll.uima.morph.ml.PosTagFeatureExtractor;
-import ru.ksu.niimm.cll.uima.morph.opencorpora.model.MorphConstants;
-import ru.ksu.niimm.cll.uima.morph.opencorpora.resource.GramModel;
-import ru.ksu.niimm.cll.uima.morph.opencorpora.resource.GramModelHolder;
+import ru.kfu.itis.issst.uima.ml.GrammemeExtractor;
+import ru.kfu.itis.issst.uima.ml.LemmaFeatureExtractor;
+import ru.kfu.itis.issst.uima.ml.NGCAgreementFeatureExtractor;
+import ru.kfu.itis.issst.uima.ml.PosTagFeatureExtractor;
+import ru.kfu.itis.issst.uima.morph.dictionary.resource.GramModel;
+import ru.kfu.itis.issst.uima.morph.dictionary.resource.GramModelHolder;
+import ru.kfu.itis.issst.uima.morph.model.MorphConstants;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
