@@ -21,6 +21,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.opencorpora.cas.Word;
 import org.uimafit.component.JCasAnnotator_ImplBase;
 import org.uimafit.descriptor.ConfigurationParameter;
+import org.uimafit.descriptor.OperationalProperties;
 import org.uimafit.factory.AnalysisEngineFactory;
 import org.uimafit.util.JCasUtil;
 
@@ -36,6 +37,7 @@ import ru.kfu.itis.issst.uima.postagger.MorphCasUtils;
  * @author Rinat Gareev (Kazan Federal University)
  * 
  */
+@OperationalProperties(multipleDeploymentAllowed = false)
 public class AnnotationSpanLemmasWriter extends JCasAnnotator_ImplBase {
 
 	public static AnalysisEngineDescription createDescription(
