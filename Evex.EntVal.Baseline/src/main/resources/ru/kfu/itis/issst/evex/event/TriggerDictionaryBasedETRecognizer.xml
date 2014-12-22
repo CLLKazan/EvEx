@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>org.apache.uima.annotator.dict_annot.impl.DictionaryAnnotator
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>TriggerDictionaryBasedETR</name>
+		<description />
+		<configurationParameters>
+			<configurationParameter>
+				<name>DictionaryFiles</name>
+				<description>list of dictionary files to configure the annotator</description>
+				<type>String</type>
+				<multiValued>true</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+
+			<configurationParameter>
+				<name>InputMatchType</name>
+				<description></description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+
+			<configurationParameter>
+				<name>InputMatchFeaturePath</name>
+				<description></description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>DictionaryFiles</name>
+				<value>
+					<array>
+						<string>dict-evtrig-DeclareBankruptcy.xml</string>
+						<string>dict-evtrig-Die.xml</string>
+						<string>dict-evtrig-EndOrg.xml</string>
+						<string>dict-evtrig-EndPosition.xml</string>
+						<string>dict-evtrig-Fine.xml</string>
+						<string>dict-evtrig-IndictSue.xml</string>
+						<string>dict-evtrig-Injure.xml</string>
+						<string>dict-evtrig-MergeOrg.xml</string>
+						<string>dict-evtrig-Sentence.xml</string>
+						<string>dict-evtrig-StartOrg.xml</string>
+						<string>dict-evtrig-StartPosition.xml</string>
+						<string>dict-evtrig-TransferMoney.xml</string>
+						<string>dict-evtrig-TransferOwnership.xml</string>
+						<string>dict-evtrig-TrialHearing.xml</string>
+					</array>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>InputMatchType</name>
+				<value>
+					<string>ru.kfu.itis.issst.evex.util.SimpleWord</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>InputMatchFeaturePath</name>
+				<value>
+					<string>lemma</string>
+				</value>
+			</nameValuePair>
+		</configurationParameterSettings>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+</analysisEngineDescription>

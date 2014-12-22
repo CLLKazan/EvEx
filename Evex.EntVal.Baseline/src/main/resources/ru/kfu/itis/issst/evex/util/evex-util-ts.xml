@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<name>evex-util</name>
+	<description />
+	<version>1.0</version>
+	<vendor>Intelligent Search Systems and Semantic Technologies Lab
+		at Higher School of ITIS
+		at Kazan Federal University
+	</vendor>
+
+	<types>
+		<typeDescription>
+			<name>ru.kfu.itis.issst.evex.util.SimpleWord</name>
+			<description />
+			<supertypeName>uima.tcas.Annotation</supertypeName>
+			<features>
+				<featureDescription>
+					<name>token</name>
+					<description />
+					<rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+				</featureDescription>
+				<featureDescription>
+					<name>lemma</name>
+					<description />
+					<rangeTypeName>uima.cas.String</rangeTypeName>
+				</featureDescription>
+				<featureDescription>
+					<name>grammems</name>
+					<description />
+					<rangeTypeName>uima.cas.StringArray</rangeTypeName>
+				</featureDescription>
+			</features>
+		</typeDescription>
+	</types>
+</typeSystemDescription>
