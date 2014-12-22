@@ -13,12 +13,12 @@ import org.apache.uima.jcas.cas.TOP_Type;
  * Updated by JCasGen Mon Dec 22 16:36:04 MSK 2014
  * XML source: src/main/resources/ru/kfu/itis/issst/evex/entval/entval-ts.xml
  * @generated */
-public class GPEGPE extends GPE {
+public class TrialHearing extends Event {
   /** @generated
    * @ordered 
    */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = JCasRegistry.register(GPEGPE.class);
+  public final static int typeIndexID = JCasRegistry.register(TrialHearing.class);
   /** @generated
    * @ordered 
    */
@@ -30,23 +30,23 @@ public class GPEGPE extends GPE {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected GPEGPE() {/* intentionally empty block */}
+  protected TrialHearing() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated */
-  public GPEGPE(int addr, TOP_Type type) {
+  public TrialHearing(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
   
   /** @generated */
-  public GPEGPE(JCas jcas) {
+  public TrialHearing(JCas jcas) {
     super(jcas);
     readObject();   
   } 
 
   /** @generated */  
-  public GPEGPE(JCas jcas, int begin, int end) {
+  public TrialHearing(JCas jcas, int begin, int end) {
     super(jcas);
     setBegin(begin);
     setEnd(end);

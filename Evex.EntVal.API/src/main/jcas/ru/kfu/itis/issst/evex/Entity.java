@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Thu Jul 03 20:13:04 MSD 2014 */
+/* First created by JCasGen Mon Dec 22 16:36:04 MSK 2014 */
 package ru.kfu.itis.issst.evex;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Thu Jul 03 20:13:04 MSD 2014
+ * Updated by JCasGen Mon Dec 22 16:36:04 MSK 2014
  * XML source: src/main/resources/ru/kfu/itis/issst/evex/entval/entval-ts.xml
  * @generated */
 public class Entity extends Annotation {

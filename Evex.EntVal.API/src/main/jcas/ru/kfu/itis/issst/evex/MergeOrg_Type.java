@@ -9,12 +9,11 @@ import org.apache.uima.cas.impl.FSGenerator;
 import org.apache.uima.cas.FeatureStructure;
 import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
-import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
  * Updated by JCasGen Mon Dec 22 16:36:04 MSK 2014
  * @generated */
-public class Value_Type extends Annotation_Type {
+public class MergeOrg_Type extends Event_Type {
   /** @generated */
   @Override
   protected FSGenerator getFSGenerator() {return fsGenerator;}
@@ -22,31 +21,31 @@ public class Value_Type extends Annotation_Type {
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (Value_Type.this.useExistingInstance) {
+  			 if (MergeOrg_Type.this.useExistingInstance) {
   			   // Return eq fs instance if already created
-  		     FeatureStructure fs = Value_Type.this.jcas.getJfsFromCaddr(addr);
+  		     FeatureStructure fs = MergeOrg_Type.this.jcas.getJfsFromCaddr(addr);
   		     if (null == fs) {
-  		       fs = new Value(addr, Value_Type.this);
-  			   Value_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  		       fs = new MergeOrg(addr, MergeOrg_Type.this);
+  			   MergeOrg_Type.this.jcas.putJfsFromCaddr(addr, fs);
   			   return fs;
   		     }
   		     return fs;
-        } else return new Value(addr, Value_Type.this);
+        } else return new MergeOrg(addr, MergeOrg_Type.this);
   	  }
     };
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = Value.typeIndexID;
+  public final static int typeIndexID = MergeOrg.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("ru.kfu.itis.issst.evex.Value");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("ru.kfu.itis.issst.evex.MergeOrg");
 
 
 
   /** initialize variables to correspond with Cas Type and Features
 	* @generated */
-  public Value_Type(JCas jcas, Type casType) {
+  public MergeOrg_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
