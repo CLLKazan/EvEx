@@ -5,6 +5,7 @@ package ru.kfu.itis.issst.evex.event.util;
 
 import static org.uimafit.factory.CollectionReaderFactory.createDescription;
 import static org.uimafit.factory.TypeSystemDescriptionFactory.createTypeSystemDescription;
+import static ru.kfu.itis.cll.uima.util.CorpusUtils.getTrainPartitionFilename;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +18,7 @@ import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.uimafit.factory.AnalysisEngineFactory;
 import org.uimafit.pipeline.SimplePipeline;
 
-import ru.kfu.itis.cll.uima.cpe.XmiCollectionReader;
+import ru.kfu.itis.cll.uima.cpe.XmiFileListReader;
 import ru.kfu.itis.cll.uima.util.Slf4jLoggerImpl;
 import ru.kfu.itis.issst.evex.entval.EntvalRecognizerAPI;
 import ru.kfu.itis.issst.uima.postagger.PosTaggerAPI;
@@ -55,9 +56,12 @@ public class WriteTriggerLemmas {
 			EntvalRecognizerAPI.TYPESYSTEM_ENTVAL);
 
 	private void run() throws UIMAException, IOException {
-		CollectionReaderDescription colReaderDesc = createDescription(XmiCollectionReader.class,
+		CollectionReaderDescription colReaderDesc = createDescription(
+				XmiFileListReader.class,
 				inputTSD,
-				XmiCollectionReader.PARAM_INPUTDIR, corpusDir.getPath());
+				XmiFileListReader.PARAM_BASE_DIR, corpusDir.getPath(),
+				XmiFileListReader.PARAM_LIST_FILE,
+				new File(corpusDir, getTrainPartitionFilename(0)));
 		List<AnalysisEngineDescription> pipelineAEDescs = Lists.newLinkedList();
 		List<String> pipelineAENames = Lists.newLinkedList();
 		for (String etn : Events.getEventTypes()) {
