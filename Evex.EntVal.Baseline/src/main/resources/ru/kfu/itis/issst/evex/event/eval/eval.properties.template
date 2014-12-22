@@ -1,0 +1,22 @@
+goldCasDirectory.impl=ru.kfu.itis.cll.uima.eval.cas.FileListCasDirectory
+systemCasDirectory.impl=ru.kfu.itis.cll.uima.eval.cas.FSCasDirectory
+#
+annotationTypes=${annotationTypes}
+#
+typeSystem.description.paths=
+typeSystem.description.names=ru.kfu.itis.cll.uima.commons.Commons-TypeSystem,\
+ru.kfu.cll.uima.tokenizer.tokenizer-TypeSystem,\
+ru.kfu.itis.issst.uima.segmentation.segmentation-TypeSystem,\
+org.opencorpora.morphology-ts,\
+ru.kfu.itis.issst.evex.entval.entval-ts
+#
+document.meta.annotationType=ru.kfu.itis.cll.uima.commons.DocumentMetadata
+document.meta.uriFeatureName=sourceUri
+# eval listeners for each event type are added programmatically
+#
+listener.logging=ru.kfu.itis.cll.uima.eval.event.LoggingEvaluationListener
+listenerProperty.logging.stripDocumentUri=true
+listenerProperty.logging.outputFile=${outputBaseDir}/eval-log.csv
+# matchers
+check.targetTypes={annotationTypes}
+# matcher for each event type are added programmaticaly

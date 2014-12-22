@@ -63,18 +63,9 @@ public class WriteTriggerLemmas {
 		for (String etn : Events.getEventTypes()) {
 			pipelineAENames.add(etn + "-lemma-writer");
 			pipelineAEDescs.add(AnnotationSpanLemmasWriter.createDescription(etn,
-					new File(outputDir, getOutputFileName(etn))));
+					new File(outputDir, Events.getTypeShortName(etn))));
 		}
 		SimplePipeline.runPipeline(colReaderDesc, AnalysisEngineFactory.createAggregateDescription(
 				pipelineAEDescs, pipelineAENames, null, null, null, null));
-	}
-
-	private String getOutputFileName(String annoTypeName) {
-		int lastDotIdx = annoTypeName.lastIndexOf('.');
-		if (lastDotIdx >= 0) {
-			return annoTypeName.substring(lastDotIdx + 1);
-		} else {
-			return annoTypeName;
-		}
 	}
 }

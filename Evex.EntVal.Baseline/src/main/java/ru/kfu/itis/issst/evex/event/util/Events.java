@@ -29,6 +29,15 @@ public class Events {
 		return eventTypes;
 	}
 
+	static public String getTypeShortName(String typeName) {
+		int lastDotIdx = typeName.lastIndexOf('.');
+		if (lastDotIdx >= 0) {
+			return typeName.substring(lastDotIdx + 1);
+		} else {
+			return typeName;
+		}
+	}
+
 	static private final Set<String> eventTypes;
 
 	static {
