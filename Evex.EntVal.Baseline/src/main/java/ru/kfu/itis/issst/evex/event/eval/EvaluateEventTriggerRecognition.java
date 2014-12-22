@@ -81,9 +81,10 @@ public class EvaluateEventTriggerRecognition {
 	private void setupEvalListener(final String eventTypeName, final Properties cfg) {
 		final String eventTypeShort = Events.getTypeShortName(eventTypeName);
 		String listenerName = String.format("listener.%sEval", eventTypeShort);
+		String listenerPropertyPrefix = String.format("listenerProperty.%sEval", eventTypeShort);
 		cfg.setProperty(listenerName, EVAL_LISTENER_CLASS_NAME);
-		cfg.setProperty(listenerName + ".targetTypeName", eventTypeName);
-		cfg.setProperty(listenerName + ".outputFile",
+		cfg.setProperty(listenerPropertyPrefix + ".targetTypeName", eventTypeName);
+		cfg.setProperty(listenerPropertyPrefix + ".outputFile",
 				new File(systemOutputDir, eventTypeShort + "-eval-results.txt").getPath());
 	}
 

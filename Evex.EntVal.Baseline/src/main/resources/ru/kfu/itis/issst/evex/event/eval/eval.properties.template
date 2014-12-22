@@ -18,5 +18,5 @@ listener.logging=ru.kfu.itis.cll.uima.eval.event.LoggingEvaluationListener
 listenerProperty.logging.stripDocumentUri=true
 listenerProperty.logging.outputFile=${outputBaseDir}/eval-log.csv
 # matchers
-check.targetTypes={annotationTypes}
+check.targetTypes=${annotationTypes}
 # matcher for each event type are added programmaticaly
