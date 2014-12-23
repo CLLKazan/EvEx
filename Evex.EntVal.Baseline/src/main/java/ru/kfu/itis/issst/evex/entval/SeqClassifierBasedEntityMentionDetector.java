@@ -76,12 +76,16 @@ public class SeqClassifierBasedEntityMentionDetector<ET extends Annotation>
 	public static AnalysisEngineDescription createFeatureExtractorDescription(
 			Class<?> entityTypeClass, ExternalResourceDescription gramModelDesc, File trainingDir)
 			throws ResourceInitializationException {
-		return createPrimitiveDescription(SeqClassifierBasedEntityMentionDetector.class,
+		AnalysisEngineDescription result = createPrimitiveDescription(
+				SeqClassifierBasedEntityMentionDetector.class,
 				RESOURCE_GRAM_MODEL, gramModelDesc,
 				PARAM_DATA_WRITER_FACTORY_CLASS_NAME,
 				CRFSuiteStringOutcomeDataWriterFactory.class.getName(),
 				DirectoryDataWriterFactory.PARAM_OUTPUT_DIRECTORY, trainingDir,
 				PARAM_ENTITY_TYPE, entityTypeClass.getName());
+		result.getAnalysisEngineMetaData().getOperationalProperties()
+				.setMultipleDeploymentAllowed(false);
+		return result;
 	}
 
 	public static AnalysisEngineDescription createAnalyzerDescription(
